@@ -7,13 +7,14 @@ import java.util.concurrent.Executors;
 //import org.usfirst.frc.team3414.robot.autonomous.IAutonomousControl;
 import org.usfirst.frc.team3414.robot.sensors.SensorConfig;
 import org.usfirst.frc.team3414.robot.teleop.JuniorTeleop;
-
+import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.SPI;
 
 
 /**
@@ -27,9 +28,9 @@ public class Robot extends IterativeRobot {
 	RobotStatus.checkIsAlpha();
 	SensorConfig.getInstance();
 	ActuatorConfig.getInstance();
-
 	teleop = new JuniorTeleop();
 	executor = Executors.newFixedThreadPool(2);
+	AHRS ahrs;
 }
 
 public void robotInit()
@@ -37,6 +38,7 @@ public void robotInit()
 
 	makeAutoChooser();
 	makePositionChooser();
+    ahrs = new AHRS(SPI.Port.kMXP);
 }
 
 private void makeAutoChooser()
