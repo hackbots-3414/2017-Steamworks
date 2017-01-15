@@ -8,13 +8,16 @@ import java.util.concurrent.Executors;
 import org.usfirst.frc.team3414.robot.sensors.SensorConfig;
 import org.usfirst.frc.team3414.robot.teleop.JuniorTeleop;
 import com.kauailabs.navx.frc.AHRS;
+import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.SerialPort;
 
 
 /**
@@ -25,20 +28,21 @@ import edu.wpi.first.wpilibj.SPI;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	RobotStatus.checkIsAlpha();
+	/*RobotStatus.checkIsAlpha();
 	SensorConfig.getInstance();
 	ActuatorConfig.getInstance();
 	teleop = new JuniorTeleop();
-	executor = Executors.newFixedThreadPool(2);
+	executor = Executors.newFixedThreadPool(2);*/
 	AHRS ahrs;
-}
-
+	RobotDrive myRobot;
+    Joystick stick;
+    
 public void robotInit()
 {
 
 	makeAutoChooser();
 	makePositionChooser();
-    ahrs = new AHRS(SPI.Port.kMXP);
+    ahrs = new AHRS(SerialPort.Port.kMXP);
 }
 
 private void makeAutoChooser()
