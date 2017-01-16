@@ -4,6 +4,7 @@ import org.usfirst.frc.team3414.robot.PID.IPIDFeedbackDevice;
 
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
+import com.ctre.CANTalon;
 
 public class Motor implements IMotor{
 
