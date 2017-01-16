@@ -1,10 +1,12 @@
 package org.usfirst.frc.team3414.robot.sensors;
 
+import org.usfirst.frc.team3414.robot.sensors.EOutputDevice;
+
 public class PIDLogger {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	public void reportInformation(EOutputDevice device)
+	{
 	}
+
 
 }
