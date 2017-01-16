@@ -47,7 +47,7 @@ public void robotInit()
 
 private void makeAutoChooser()
 {
-	autoChooser = new SendableChooser();
+	//autoChooser = new SendableChooser();
 
 //	autoChooser.addObject("Do Nothing", new AutonDoNothing());
 //	autoChooser.addObject("Reach Defenses", new AutonReachDefenses());
@@ -59,12 +59,12 @@ private void makeAutoChooser()
 //	autoChooser.addObject("Cheval De Frise", new AutonChevalDeFrise());
 //	autoChooser.addObject("Portcullis", new AutonPortcullis());
 	
-	SmartDashboard.putData("Autonomous Chooser", autoChooser);
+//	SmartDashboard.putData("Autonomous Chooser", autoChooser);
 }
 
 private void makePositionChooser()
 {
-	positionChooser = new SendableChooser();
+//	positionChooser = new SendableChooser();
 	
 //	positionChooser.addObject("Position One (Low Bar)", EAutoPositions.ONE);
 //	positionChooser.addObject("Position Two (Something Else)", EAutoPositions.TWO);
@@ -72,42 +72,42 @@ private void makePositionChooser()
 //	positionChooser.addObject("Position Four (Something Else)", EAutoPositions.FOUR);
 //	positionChooser.addObject("Position Five (Something Else)", EAutoPositions.FIVE);
 	
-	SmartDashboard.putData("Autonomous Position Chooser", positionChooser);
+//	SmartDashboard.putData("Autonomous Position Chooser", positionChooser);
 }
 
-public void autonomous()
-{
-	RobotStatus.setIsRunning(true);
-	RobotStatus.setIsAuto(true);
-	RobotStatus.setIsTeleop(false);
-
-	SensorConfig.getInstance().getGyro().hardResetCount();
-	System.out.println("Autonomous Mode" + positionChooser.getSelected());
-
-
-	executor.submit(() ->
-	{
-		while (RobotStatus.isAuto())
-		{
-			teleop.printToSmartDashboard();
-			
-			SensorConfig.getInstance().getTimer().waitTimeInMillis(50);
-		}
-	});
-	executor.submit(() ->
-	{
-		System.out.println("Auto Running");
-
-		ActuatorConfig.getInstance().getDriveTrainAssist().driveTrainCoast(false); // Should do the same thing
-		
-//		ActuatorConfig.getInstance().getFrontLeftDriveMotor().enableBrakeMode(true);
-//		ActuatorConfig.getInstance().getFrontRightDriveMotor().enableBrakeMode(true);
-//		ActuatorConfig.getInstance().getBackLeftDriveMotor().enableBrakeMode(true);
-//		ActuatorConfig.getInstance().getBackRightDriveMotor().enableBrakeMode(true);
-		
-		((IAutonomousControl) autoChooser.getSelected()).doAuto((EAutoPositions)positionChooser.getSelected());
-	});
-}
+//public void autonomous()
+//{
+//	RobotStatus.setIsRunning(true);
+//	RobotStatus.setIsAuto(true);
+//	RobotStatus.setIsTeleop(false);
+//
+//	SensorConfig.getInstance().getGyro().hardResetCount();
+////	System.out.println("Autonomous Mode" + positionChooser.getSelected());
+//
+//
+//	executor.submit(() ->
+//	{
+//		while (RobotStatus.isAuto())
+//		{
+//			teleop.printToSmartDashboard();
+//			
+//			SensorConfig.getInstance().getTimer().waitTimeInMillis(50);
+//		}
+//	});
+//	executor.submit(() ->
+//	{
+//		System.out.println("Auto Running");
+//
+//		ActuatorConfig.getInstance().getDriveTrainAssist().driveTrainCoast(false); // Should do the same thing
+//		
+////		ActuatorConfig.getInstance().getFrontLeftDriveMotor().enableBrakeMode(true);
+////		ActuatorConfig.getInstance().getFrontRightDriveMotor().enableBrakeMode(true);
+////		ActuatorConfig.getInstance().getBackLeftDriveMotor().enableBrakeMode(true);
+////		ActuatorConfig.getInstance().getBackRightDriveMotor().enableBrakeMode(true);
+//		
+//		((IAutonomousControl) autoChooser.getSelected()).doAuto((EAutoPositions)positionChooser.getSelected());
+//	});
+//}
 
 public void operatorControl()
 {
@@ -115,9 +115,9 @@ public void operatorControl()
 	RobotStatus.setIsAuto(false);
 	RobotStatus.setIsTeleop(true);
 	
-	ActuatorConfig.getInstance().getDriveTrainAssist().driveTrainCoast(true);
+//	ActuatorConfig.getInstance().getDriveTrainAssist().driveTrainCoast(true);
 	
-	teleop.doTeleop();
+//	teleop.doTeleop();
 }
 
 public void disabled()
