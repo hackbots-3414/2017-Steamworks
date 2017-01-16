@@ -17,6 +17,9 @@ import org.usfirst.frc.team3414.robot.sensors.Logitech3DJoystick;
 import org.usfirst.frc.team3414.robot.sensors.MicrosoftLifeCam;
 import org.usfirst.frc.team3414.robot.sensors.PowerDistributionPanel;
 import org.usfirst.frc.team3414.robot.sensors.SensorConfig;
+import org.usfirst.frc.team3414.robot.sensors.GyroscopeNavX;
+import org.usfirst.frc.team3414.robot.sensors.AccelerometerNavX;
+import org.usfirst.frc.team3414.robot.sensors.CompassNavX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -42,8 +45,8 @@ public class SensorConfig {
 
 	// Cool stuff
 //	private CompassNavX compassNavX;
-	private BuiltInAccelerometer accelNavX;
-
+	private AccelerometerNavX accelNavX;
+	private CompassNavX compassNavX;
 	private ITimer timer;
 
 	private IPowerBoard pdp;
@@ -75,7 +78,7 @@ public class SensorConfig {
 
 		pdp = new PowerDistributionPanel();
 
-		cameraOne = new MicrosoftLifeCam(CAMERA_USB_PORT);
+//		cameraOne = new MicrosoftLifeCam(CAMERA_USB_PORT);
 
 		cameraOne.enable();
 
