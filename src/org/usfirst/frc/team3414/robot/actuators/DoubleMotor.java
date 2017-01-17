@@ -2,6 +2,7 @@ package org.usfirst.frc.team3414.robot.actuators;
 
 import org.usfirst.frc.team3414.robot.PID.IPIDFeedbackDevice;
 import com.ctre.CANTalon;
+import com.ctre.CANTalon.TalonControlMode;
 
 public class DoubleMotor {
 
@@ -37,7 +38,6 @@ public class DoubleMotor {
 		motorTwo.setFollowerDeviceID(motorOne.getDeviceID());
 	}
 
-	@Override
 	public double getSpeed()
 	{
 		if (CANMotorOne != null)
@@ -50,7 +50,6 @@ public class DoubleMotor {
 
 	}
 
-	@Override
 	public void setSpeed(double speed)
 	{
 		if (CANMotorOne != null)
@@ -63,7 +62,6 @@ public class DoubleMotor {
 		}
 	}
 
-	@Override
 	public void stop()
 	{
 		if (CANMotorOne != null)

@@ -2,6 +2,7 @@ package org.usfirst.frc.team3414.robot.actuators;
 
 import org.usfirst.frc.team3414.robot.PID.IPIDFeedbackDevice;
 import com.ctre.CANTalon;
+import com.ctre.CANTalon.TalonControlMode;
 
 public class CANMotor {
 	private boolean invertDirection;
@@ -29,62 +30,53 @@ public class CANMotor {
 		canMotor.setFeedbackDevice(device.whatPIDDevice());
 	}
 
-	@Override
 	public void setP(double p)
 	{
 		canMotor.setP(p);
 	}
 
-	@Override
 	public void setI(double i)
 	{
 		canMotor.setI(i);
 	}
 
-	@Override
 	public void setD(double d)
 	{
 		canMotor.setD(d);
 	}
 
-	@Override
 	public void setPIDFeedbackDevice(IPIDFeedbackDevice device)
 	{
 		this.device = device;
 	}
 
-	@Override
 	public IPIDFeedbackDevice getPIDFeedbackDevice()
 	{
 		return device;
 	}
 
-	@Override
 	public void enablePID()
 	{
 		canMotor.reset();
 		canMotor.enable();
 	}
 
-	@Override
 	public void disablePID()
 	{
 		canMotor.changeControlMode(TalonControlMode.PercentVbus);
 	}
 
-	@Override
 	public TalonControlMode getControlMode()
 	{
 		return canMotor.getControlMode();
 	}
 
-	@Override
 	public void setControlMode(TalonControlMode mode)
 	{
 		canMotor.changeControlMode(mode);
 	}
 
-	@Override
+	
 	/**
 	 * In PercentVbus and Follower modes: returns current applied throttle.
 	 */
