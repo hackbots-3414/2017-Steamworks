@@ -70,13 +70,13 @@ public class SensorConfig {
 		try
 		{
 			ahrs = new AHRS(SPI.Port.kMXP);
-			gyro = new GyroscopeNavX(ahrs); // Resets on start up
+			gyro = (IGyroscope) new GyroscopeNavX(ahrs); // Resets on start up
 		} catch (Exception e)
 		{
 			System.err.println("No NavX MXP board found, or plugged into the wrong spot");
 		}
 
-		pdp = new PowerDistributionPanel();
+		pdp = (IPowerBoard) new PowerDistributionPanel();
 
 //		cameraOne = new MicrosoftLifeCam(CAMERA_USB_PORT);
 
