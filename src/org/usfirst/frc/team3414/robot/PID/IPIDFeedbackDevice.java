@@ -1,5 +1,7 @@
 package org.usfirst.frc.team3414.robot.PID;
 
+import com.ctre.CANTalon.FeedbackDevice;
+
 import edu.wpi.first.wpilibj.Talon;
 
 public interface IPIDFeedbackDevice {
@@ -20,4 +22,6 @@ public interface IPIDFeedbackDevice {
 	public double getDistance();
 	
 	public void reverseSensor(boolean reversed);
+
+	public FeedbackDevice whatPIDDevice();
 }
