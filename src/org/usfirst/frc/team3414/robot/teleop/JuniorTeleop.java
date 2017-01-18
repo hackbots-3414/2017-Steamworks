@@ -5,6 +5,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import org.usfirst.frc.team3414.robot.actuators.CANMotor;
 import org.usfirst.frc.team3414.robot.actuators.drivetrain.JuniorDrive;
 import org.usfirst.frc.team3414.robot.RobotStatus;
 import org.usfirst.frc.team3414.robot.sensors.EButtonJoystick;
@@ -12,56 +13,45 @@ import org.usfirst.frc.team3414.robot.sensors.IGamepad;
 import org.usfirst.frc.team3414.robot.sensors.IJoystick;
 import org.usfirst.frc.team3414.robot.sensors.SensorConfig;
 
+import com.ctre.CANTalon;
+
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class JuniorTeleop {
 
-	private ExecutorService executor;
-
-	// Instances
-	private IGamepad gamepad;
-	private JuniorDrive driveTrain;
-	private IJoystick leftJoystick;
-	private IJoystick rightJoystick;
-
-	private Future<?> smartDashboardTask;
 	
-	private HashMap<String, Future<?>> futureTable;
-//	private ITeleopTask driverPresetTask, driveTask, intakeTask, lifterTask, manualAugerTask, manualShooterTask, semiAutoTask, presetShooterTask; // implement lifter if needed
-
-//	private ActuatorConfig actuators;
-	private SensorConfig sensors;
-
-//	private ISemiAutonomousMode chevalSemiAuto; // work on this later
-	
-//	private EJoystickButtons shootLowButton, shootHighCornerButton, shootHighCenterButton, lowBarButton, standardDefenseButton, intakeButton, 
-//							 lifterExtendButton, lifterRetractButton, raiseAugerButton, lowerAugerButton, raiseShooterButton, lowerShooterButton, lightShooter;
-	
-	private IJoystick presetJoystick;
-
-	// Auto Teleop
+	CANMotor CANMotor1 = new CANMotor(new CANTalon(1), true);
+	CANMotor CANMotor2 = new CANMotor(new CANTalon(2), true);
+	CANMotor CANMotor3 = new CANMotor(new CANTalon(3), true);
+	CANMotor CANMotor4 = new CANMotor(new CANTalon(4), true);
+	Joystick joy = new Joystick(0);
+	Joystick joy1 = new Joystick(1);
 
 	public JuniorTeleop()
 	{
-		executor = Executors.newFixedThreadPool(4); // Maximum 4 concurrent
-													// tasks
-		
-		futureTable = new HashMap<>();
+//		executor = Executors.newFixedThreadPool(4); // Maximum 4 concurrent
+//													// tasks
+//		
+//		futureTable = new HashMap<>();
+//
+//		// Instances
+//		gamepad = SensorConfig.getInstance().getGamepad();
+//
+//
+//		sensors = SensorConfig.getInstance();
 
-		// Instances
-		gamepad = SensorConfig.getInstance().getGamepad();
-		leftJoystick = SensorConfig.getInstance().getLeftJoystick();
-		rightJoystick = SensorConfig.getInstance().getRightJoystick();
-
-		sensors = SensorConfig.getInstance();
-		
-		
-		presetJoystick = rightJoystick;
 
 	}
 
 	public void doTeleop()
 	{
+		while (RobotStatus.isRunning()) {
+			CANMotor1.setSpeed(joy.getY());
+			CANMotor2.setSpeed(joy.getY());
+			CANMotor3.setSpeed(joy1.getY());
+			CANMotor4.setSpeed(joy1.getY());
+		}
 //		driveTask.doTask();
 //
 //		while (RobotStatus.isTeleop())
@@ -163,11 +153,11 @@ public class JuniorTeleop {
 //		}
 	}
 
-	public void interruptTeleop()
-	{
-		for(String id : futureTable.keySet())
-		{
-			futureTable.get(id).cancel(true);
-		}
-	}
+//	public void interruptTeleop()
+//	{
+//		for(String id : futureTable.keySet())
+//		{
+//			futureTable.get(id).cancel(true);
+//		}
+//	}
 }
