@@ -40,8 +40,6 @@ public class Robot extends IterativeRobot {
 public void robotInit()
 {
     ahrs = new AHRS(SerialPort.Port.kMXP);
-
-    
 }
 
 public void teleopPeriodic()

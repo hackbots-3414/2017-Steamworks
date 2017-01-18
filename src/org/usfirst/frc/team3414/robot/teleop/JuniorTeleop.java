@@ -25,20 +25,18 @@ public class JuniorTeleop {
 	CANMotor CANMotor2 = new CANMotor(new CANTalon(2), true);
 	CANMotor CANMotor3 = new CANMotor(new CANTalon(3), true);
 	CANMotor CANMotor4 = new CANMotor(new CANTalon(4), true);
-	Joystick joy = new Joystick(0);
-	Joystick joy1 = new Joystick(1);
+	CANMotor CANMotor5 = new CANMotor(new CANTalon(5), true);
+	CANMotor CANMotor6 = new CANMotor(new CANTalon(6), true);	
+	Joystick joyleft = new Joystick(0);
+	Joystick joyright = new Joystick(1);
 
 	public JuniorTeleop()
 	{
 //		executor = Executors.newFixedThreadPool(4); // Maximum 4 concurrent
-//													// tasks
-//		
+//													// tasks		
 //		futureTable = new HashMap<>();
-//
 //		// Instances
 //		gamepad = SensorConfig.getInstance().getGamepad();
-//
-//
 //		sensors = SensorConfig.getInstance();
 
 
@@ -47,10 +45,10 @@ public class JuniorTeleop {
 	public void doTeleop()
 	{
 		while (RobotStatus.isRunning()) {
-			CANMotor1.setSpeed(joy.getY());
-			CANMotor2.setSpeed(joy.getY());
-			CANMotor3.setSpeed(joy1.getY());
-			CANMotor4.setSpeed(joy1.getY());
+			CANMotor1.setSpeed(joyleft.getY());
+			CANMotor2.setSpeed(joyleft.getY());
+			CANMotor3.setSpeed(joyright.getY());
+			CANMotor4.setSpeed(joyright.getY());
 		}
 //		driveTask.doTask();
 //
