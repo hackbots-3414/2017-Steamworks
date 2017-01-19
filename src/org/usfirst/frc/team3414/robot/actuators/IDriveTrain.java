@@ -2,6 +2,8 @@ package org.usfirst.frc.team3414.robot.actuators;
 
 import org.usfirst.frc.team3414.robot.PID.IPIDEnabledDevice;
 
+import com.ctre.CANTalon.TalonControlMode;
+
 public interface IDriveTrain {
 	
 	public void setSpeed(double leftSpeed, double rightSpeed);
@@ -35,4 +37,10 @@ public interface IDriveTrain {
 	public void driveRight(double speed);
 
 	public void driveStraight(double speed);
+
+	public void enablePID();
+
+	public void setControlMode(TalonControlMode speed);
+
+	public void disablePID();
 }
