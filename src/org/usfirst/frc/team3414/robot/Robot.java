@@ -1,8 +1,12 @@
 
 package org.usfirst.frc.team3414.robot;
 
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.usfirst.frc.team3414.robot.actuators.ActuatorConfig;
+import org.usfirst.frc.team3414.robot.teleop.ITeleopControl;
+import org.usfirst.frc.team3414.robot.teleop.JuniorTeleop;
 import org.usfirst.frc.team3414.robot.actuators.CANMotor;
 //import org.usfirst.frc.team3414.robot.actuators.ActuatorConfig;
 //import org.usfirst.frc.team3414.robot.autonomous.IAutonomousControl;
@@ -30,48 +34,107 @@ import edu.wpi.first.wpilibj.SerialPort;
  */
 public class Robot extends IterativeRobot {
 //	RobotStatus.checkIsAlpha();
-//	SensorConfig.getInstance();
-//	ActuatorConfig.getInstance();
-	JuniorTeleop teleop = new JuniorTeleop();
-//	executor = Executors.newFixedThreadPool(2);
+	private ITeleopControl teleop;
+	private ExecutorService executor;
+	private SendableChooser autoChooser;
+	private SendableChooser positionChooser;
 	AHRS ahrs;
-	RobotDrive myRobot;
-    
-public void robotInit()
-{
-    ahrs = new AHRS(SerialPort.Port.kMXP);
-}
 
-public void teleopPeriodic()
-{
-    operatorControl();
-}
+	public Robot()
+	{
+		RobotStatus.checkIsAlpha();
+		SensorConfig.getInstance();
+		ActuatorConfig.getInstance();
 
+		teleop = new JuniorTeleop();
+		executor = Executors.newFixedThreadPool(2);
+	}
 
-public void operatorControl()
-{
-	RobotStatus.setIsRunning(true);
-	RobotStatus.setIsAuto(false);
-	RobotStatus.setIsTeleop(true);
-	System.out.println("hi I'm Kayleigh");
+	public void robotInit()
+	{
+
+		makeAutoChooser();
+		makePositionChooser();
+	}
+
+	private void makeAutoChooser()
+	{
+		autoChooser = new SendableChooser();
+
+//		autoChooser.addDefault("Low Bar NO SHOOT", new AutonLowBar());
+		
+		SmartDashboard.putData("Autonomous Chooser", autoChooser);
+	}
 	
+	private void makePositionChooser()
+	{
+		positionChooser = new SendableChooser();
+//		
+//		positionChooser.addObject("Position One (Low Bar)", EAutoPositions.ONE);
+//		positionChooser.addObject("Position Two (Something Else)", EAutoPositions.TWO);
+//		positionChooser.addObject("Position Three (Something Else)", EAutoPositions.THREE);
+//		positionChooser.addObject("Position Four (Something Else)", EAutoPositions.FOUR);
+//		positionChooser.addObject("Position Five (Something Else)", EAutoPositions.FIVE);
+//		
+		SmartDashboard.putData("Autonomous Position Chooser", positionChooser);
+	}
 
-//	ActuatorConfig.getInstance().getDriveTrainAssist().driveTrainCoast(true);
-	
-	teleop.doTeleop();
-}
+	public void autonomous()
+	{
+		RobotStatus.setIsRunning(true);
+		RobotStatus.setIsAuto(true);
+		RobotStatus.setIsTeleop(false);
 
-public void disabled()
-{
-	RobotStatus.setIsRunning(false);
-	RobotStatus.setIsAuto(false);
-	RobotStatus.setIsTeleop(false);
-}
+		SensorConfig.getInstance().getGyro().hardResetCount();
+		System.out.println("Autonomous Mode" + positionChooser.getSelected());
 
-public void test()
-{
-	RobotStatus.setIsRunning(true);
-	RobotStatus.setIsAuto(false);
-	RobotStatus.setIsTeleop(false);
-}
+
+		executor.submit(() ->
+		{
+			while (RobotStatus.isAuto())
+			{
+				teleop.printToSmartDashboard();
+				
+				SensorConfig.getInstance().getTimer().waitTimeInMillis(50);
+			}
+		});
+		executor.submit(() ->
+		{
+			System.out.println("Auto Running");
+
+	//		ActuatorConfig.getInstance().getDriveTrainAssist().driveTrainCoast(false); // Should do the same thing
+			
+//			ActuatorConfig.getInstance().getFrontLeftDriveMotor().enableBrakeMode(true);
+//			ActuatorConfig.getInstance().getFrontRightDriveMotor().enableBrakeMode(true);
+//			ActuatorConfig.getInstance().getBackLeftDriveMotor().enableBrakeMode(true);
+//			ActuatorConfig.getInstance().getBackRightDriveMotor().enableBrakeMode(true);
+			
+//			((IAutonomousControl) autoChooser.getSelected()).doAuto((EAutoPositions)positionChooser.getSelected());
+		});
+	}
+
+	public void operatorControl()
+	{
+		RobotStatus.setIsRunning(true);
+		RobotStatus.setIsAuto(false);
+		RobotStatus.setIsTeleop(true);
+		
+//		ActuatorConfig.getInstance().getDriveTrainAssist().driveTrainCoast(true);
+		
+		teleop.doTeleop();
+	}
+
+	public void disabled()
+	{
+		RobotStatus.setIsRunning(false);
+		RobotStatus.setIsAuto(false);
+		RobotStatus.setIsTeleop(false);
+	}
+
+	public void test()
+	{
+		RobotStatus.setIsRunning(true);
+		RobotStatus.setIsAuto(false);
+		RobotStatus.setIsTeleop(false);
+	}
 }
